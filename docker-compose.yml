@@ -1,0 +1,92 @@
+version: "3.8"
+
+services:
+  # Laravel
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=pgsql
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE:-laravel}
+      - DB_USERNAME=${DB_USERNAME:-laravel}
+      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - pgsql
+      - redis
+    networks:
+      - laravel_net
+
+  # Nginx
+  webserver:
+    image: nginx:alpine
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./src:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+    networks:
+      - laravel_net
+
+  # Postgres
+  pgsql:
+    image: postgres:16-alpine
+    container_name: laravel_pgsql
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${DB_DATABASE:-laravel}
+      - POSTGRES_USER=${DB_USERNAME:-laravel}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-secret}
+    volumes:
+      - pgsql_data:/var/lib/postgresql/data
+    networks:
+      - laravel_net
+
+  # Cache
+  redis:
+    image: redis:7-alpine
+    container_name: laravel_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - laravel_net
+
+  # DBA
+  whodb:
+    image: clidey/whodb:latest
+    container_name: laravel_whodb
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - 'WHODB_POSTGRES_1={"host":"pgsql","user":"${DB_USERNAME:-laravel}","password":"${DB_PASSWORD:-secret}","database":"${DB_DATABASE:-laravel}"}'
+    depends_on:
+      - pgsql
+    networks:
+      - laravel_net
+
+networks:
+  laravel_net:
+    driver: bridge
+
+volumes:
+  pgsql_data:
+  redis_data:
