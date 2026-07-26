@@ -27,6 +27,14 @@ class GlobalExceptionHandlingTest extends TestCase
     }
 
     #[Test]
+    public function unauthenticated_requests_without_an_accept_header_return_401_instead_of_redirecting_to_login(): void
+    {
+        $response = $this->get('/api/v1/products');
+
+        $response->assertStatus(401)->assertExactJson(['message' => 'Não autenticado.']);
+    }
+
+    #[Test]
     public function missing_resources_return_404_in_portuguese_without_leaking_internals(): void
     {
         Sanctum::actingAs(User::factory()->create());
