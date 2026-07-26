@@ -33,6 +33,24 @@ class ProductCacheTest extends TestCase
     }
 
     #[Test]
+    public function the_second_identical_show_call_is_served_from_cache(): void
+    {
+        $user = Sanctum::actingAs(User::factory()->create());
+        $product = Product::factory()->for($user)->create();
+
+        $this->getJson("/api/v1/products/{$product->id}")->assertOk();
+
+        $queries = 0;
+        DB::listen(function () use (&$queries) {
+            $queries++;
+        });
+
+        $this->getJson("/api/v1/products/{$product->id}")->assertOk();
+
+        $this->assertSame(0, $queries, 'The second identical show call should not hit the database.');
+    }
+
+    #[Test]
     public function creating_a_product_invalidates_the_listing_cache(): void
     {
         $user = Sanctum::actingAs(User::factory()->create());
