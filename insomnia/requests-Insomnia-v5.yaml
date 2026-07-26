@@ -173,8 +173,8 @@ collection:
             value: "15"
             disabled: true
           - name: page
-            value: "2"
-            disabled: false
+            value: "1"
+            disabled: true
         headers:
           - name: Accept
             value: application/json
