@@ -31,6 +31,21 @@ class ProductFilterTest extends TestCase
     }
 
     #[Test]
+    public function it_filters_products_by_stock_quantity_range(): void
+    {
+        $user = Sanctum::actingAs(User::factory()->create());
+
+        Product::factory()->for($user)->create(['name' => 'Baixo Estoque', 'quantity' => 2]);
+        Product::factory()->for($user)->create(['name' => 'Estoque Medio', 'quantity' => 15]);
+        Product::factory()->for($user)->create(['name' => 'Estoque Alto', 'quantity' => 100]);
+
+        $response = $this->getJson('/api/v1/products?min_quantity=10&max_quantity=50');
+
+        $response->assertOk()->assertJsonCount(1, 'data');
+        $this->assertSame('Estoque Medio', $response->json('data.0.name'));
+    }
+
+    #[Test]
     public function it_returns_all_products_when_no_filters_are_given(): void
     {
         $user = Sanctum::actingAs(User::factory()->create());

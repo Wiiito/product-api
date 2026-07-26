@@ -20,6 +20,8 @@ class IndexProductRequest extends FormRequest
             'name' => ['sometimes', 'string', 'max:255'],
             'min_price' => ['sometimes', 'numeric', 'min:0'],
             'max_price' => ['sometimes', 'numeric', 'min:0'],
+            'min_quantity' => ['sometimes', 'integer', 'min:0'],
+            'max_quantity' => ['sometimes', 'integer', 'min:0'],
             'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
             'page' => ['sometimes', 'integer', 'min:1'],
         ];
@@ -36,6 +38,8 @@ class IndexProductRequest extends FormRequest
             'name' => 'nome',
             'min_price' => 'preço mínimo',
             'max_price' => 'preço máximo',
+            'min_quantity' => 'quantidade mínima em estoque',
+            'max_quantity' => 'quantidade máxima em estoque',
             'per_page' => 'itens por página',
             'page' => 'página',
         ];

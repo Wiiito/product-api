@@ -9,6 +9,8 @@ final readonly class ProductFilterData
         public ?string $name = null,
         public ?float $minPrice = null,
         public ?float $maxPrice = null,
+        public ?int $minQuantity = null,
+        public ?int $maxQuantity = null,
         public int $perPage = 15,
         public int $page = 1,
     ) {}
@@ -23,6 +25,8 @@ final readonly class ProductFilterData
             name: $data['name'] ?? null,
             minPrice: isset($data['min_price']) ? (float) $data['min_price'] : null,
             maxPrice: isset($data['max_price']) ? (float) $data['max_price'] : null,
+            minQuantity: isset($data['min_quantity']) ? (int) $data['min_quantity'] : null,
+            maxQuantity: isset($data['max_quantity']) ? (int) $data['max_quantity'] : null,
             perPage: (int) ($data['per_page'] ?? 15),
             page: (int) ($data['page'] ?? 1),
         );
@@ -41,6 +45,8 @@ final readonly class ProductFilterData
             'name' => $this->name,
             'min_price' => $this->minPrice,
             'max_price' => $this->maxPrice,
+            'min_quantity' => $this->minQuantity,
+            'max_quantity' => $this->maxQuantity,
             'per_page' => $this->perPage,
             'page' => $this->page,
         ];

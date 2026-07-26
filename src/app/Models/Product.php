@@ -51,4 +51,22 @@ class Product extends Model
     {
         return $query->where('price', '<=', $value);
     }
+
+    /**
+     * @param  Builder<Product>  $query
+     * @return Builder<Product>
+     */
+    public function scopeMinQuantity(Builder $query, mixed $value): Builder
+    {
+        return $query->where('quantity', '>=', $value);
+    }
+
+    /**
+     * @param  Builder<Product>  $query
+     * @return Builder<Product>
+     */
+    public function scopeMaxQuantity(Builder $query, mixed $value): Builder
+    {
+        return $query->where('quantity', '<=', $value);
+    }
 }

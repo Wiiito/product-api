@@ -34,6 +34,8 @@ class ProductRepository implements ProductRepositoryInterface
                     AllowedFilter::partial('name'),
                     AllowedFilter::scope('min_price'),
                     AllowedFilter::scope('max_price'),
+                    AllowedFilter::scope('min_quantity'),
+                    AllowedFilter::scope('max_quantity'),
                 )
                 ->allowedSorts('name', 'price', 'created_at')
                 ->paginate(perPage: $filters->perPage, page: $filters->page),
@@ -52,6 +54,8 @@ class ProductRepository implements ProductRepositoryInterface
                 'name' => $filters->name,
                 'min_price' => $filters->minPrice,
                 'max_price' => $filters->maxPrice,
+                'min_quantity' => $filters->minQuantity,
+                'max_quantity' => $filters->maxQuantity,
             ], fn (mixed $value): bool => $value !== null),
         ]);
     }
