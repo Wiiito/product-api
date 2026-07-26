@@ -120,13 +120,19 @@ Todo o ambiente roda em containers Docker, orquestrados por `docker-compose.yml`
    docker-compose up -d --build
    ```
 
-4. **Gere a chave da aplicação.**
+4. **Instalar dependências**
+
+   ```bash
+   docker exec laravel_app composer install
+   ```
+
+5. **Gere a chave da aplicação.**
 
    ```bash
    docker exec laravel_app php artisan key:generate
    ```
 
-5. **Rode as migrations** para criar as tabelas no Postgres (usuários, produtos, tokens de acesso, jobs, cache e entradas do Telescope):
+6. **Rode as migrations** para criar as tabelas no Postgres (usuários, produtos, tokens de acesso, jobs, cache e entradas do Telescope):
 
    ```bash
    docker exec laravel_app php artisan migrate
@@ -139,7 +145,7 @@ Extra. **Requets WEB** (Não necessário)
    sudo chmod -R 777 .
    ```
 
-6. **Pronto.** A API está disponível em `http://localhost:8000`.
+7. **Pronto.** A API está disponível em `http://localhost:8000`.
 
    - `http://localhost:8080` — WhoDB, para inspecionar o banco Postgres visualmente.
    - `http://localhost:8000/telescope` — Laravel Telescope, para inspecionar requisições, queries, jobs e exceções.
