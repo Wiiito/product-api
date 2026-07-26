@@ -23,7 +23,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function paginate(ProductFilterData $filters): LengthAwarePaginator
     {
-        $key = $this->cacheKeyGenerator->generate('products.index', $filters->toCacheParams());
+        $key = $this->cacheKeyGenerator->generate(self::CACHE_TAG . '.index', $filters->toCacheParams());
 
         return Cache::tags([self::CACHE_TAG])->remember(
             $key,
@@ -58,7 +58,13 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function find(int $id): Product
     {
-        return Product::query()->findOrFail($id);
+        $key = $this->cacheKeyGenerator->generate(self::CACHE_TAG . '.find', ['id' => $id]);
+
+        return Cache::tags([self::CACHE_TAG])->remember(
+            $key,
+            now()->addHour(),
+            fn () => Product::query()->findOrFail($id),
+        );
     }
 
     public function create(ProductData $data): Product
