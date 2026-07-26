@@ -24,8 +24,12 @@ WORKDIR /var/www
 
 COPY ./src /var/www
 
-RUN composer install --no-interaction --optimize-autoloade
+RUN composer install
+
+COPY ./docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 EXPOSE 9000
 
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["php-fpm"]
