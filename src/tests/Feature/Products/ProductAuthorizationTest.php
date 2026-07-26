@@ -23,8 +23,8 @@ class ProductAuthorizationTest extends TestCase
 
         $response = $this->getJson("/api/v1/products/{$product->id}");
 
-        $response->assertStatus(403)
-            ->assertExactJson(['message' => 'Você não tem permissão para executar esta ação.']);
+        $response->assertStatus(404)
+            ->assertExactJson(['message' => 'Recurso não encontrado.']);
     }
 
     #[Test]
@@ -42,7 +42,7 @@ class ProductAuthorizationTest extends TestCase
             'quantity' => 1,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertStatus(404);
         $this->assertDatabaseHas('products', ['id' => $product->id, 'name' => 'Original']);
     }
 
@@ -56,7 +56,7 @@ class ProductAuthorizationTest extends TestCase
 
         $response = $this->deleteJson("/api/v1/products/{$product->id}");
 
-        $response->assertStatus(403);
+        $response->assertStatus(404);
         $this->assertDatabaseHas('products', ['id' => $product->id]);
     }
 

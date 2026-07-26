@@ -5,6 +5,7 @@ namespace Tests\Unit\Policies;
 use App\Models\Product;
 use App\Models\User;
 use App\Policies\ProductPolicy;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -36,8 +37,18 @@ class ProductPolicyTest extends TestCase
         $someoneElse = new User(['id' => 2]);
         $product = new Product(['user_id' => 1]);
 
-        $this->assertFalse($this->policy->view($someoneElse, $product));
-        $this->assertFalse($this->policy->update($someoneElse, $product));
-        $this->assertFalse($this->policy->delete($someoneElse, $product));
+        $this->assertModelNotFound(fn () => $this->policy->view($someoneElse, $product));
+        $this->assertModelNotFound(fn () => $this->policy->update($someoneElse, $product));
+        $this->assertModelNotFound(fn () => $this->policy->delete($someoneElse, $product));
+    }
+
+    private function assertModelNotFound(callable $callback): void
+    {
+        try {
+            $callback();
+            $this->fail('Expected a ModelNotFoundException to be thrown.');
+        } catch (ModelNotFoundException) {
+            $this->addToAssertionCount(1);
+        }
     }
 }
