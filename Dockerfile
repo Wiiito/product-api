@@ -24,7 +24,7 @@ WORKDIR /var/www
 
 COPY ./src /var/www
 
-RUN if [ -f composer.json ]; then composer install --no-interaction --optimize-autoloader --no-dev; fi
+RUN if [ -f composer.json ]; then composer install --no-interaction --optimize-autoloader; fi
 
 EXPOSE 9000
 
