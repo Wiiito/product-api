@@ -1,0 +1,327 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Products API
+meta:
+  id: wrk_da00d17b72c54225bbbb98d7c34e9ac7
+  created: 1785029343663
+  modified: 1785029343663
+  description: ""
+collection:
+  - name: Auth
+    meta:
+      id: fld_30d2d0e8214a48509874f1973194c239
+      created: 1785029379767
+      modified: 1785029379767
+      sortKey: -2000
+      description: ""
+    children:
+      - url: "{{ base_url }}/api/v1/auth/register"
+        name: Register
+        meta:
+          id: req_4899492902ac4b4a9931fa31800fd72e
+          created: 1785029379769
+          modified: 1785099283125
+          isPrivate: false
+          description: ""
+          sortKey: -4000
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Jane Doe",
+              "email": "jane@example3.com",
+              "password": "password123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Accept
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/auth/login"
+        name: Login
+        meta:
+          id: req_5341d64f8bfe4bc9b798a9450f930c43
+          created: 1785029379770
+          modified: 1785030847186
+          isPrivate: false
+          description: Copie o `token` da resposta para a variavel de ambiente `token`
+          sortKey: -3000
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "email": "jane@example3.com",
+              "password": "password123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Accept
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/auth/logout"
+        name: Logout
+        meta:
+          id: req_513ef3cdc7544a0e9a98bd70f4bd219e
+          created: 1785029379771
+          modified: 1785029740597
+          isPrivate: false
+          description: ""
+          sortKey: -2000
+        method: POST
+        headers:
+          - name: Accept
+            value: application/json
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+          prefix: ""
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Products
+    meta:
+      id: fld_716c27b366c946a3bdcf9fb9be8519e0
+      created: 1785029379768
+      modified: 1785029941766
+      sortKey: -1000
+      description: Todas as rotas exigem o Bearer token obtido em Auth > Login
+    children:
+      - url: "{{ base_url }}/api/v1/products"
+        name: Create Product
+        meta:
+          id: req_2ae631fd3c6347078e5b97b778520ec7
+          created: 1785029379771
+          modified: 1785102054383
+          isPrivate: false
+          description: ""
+          sortKey: -4000
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Item teste 2",
+              "description": "Descrição do item",
+              "price": 42,
+              "quantity": 15
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Accept
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/products"
+        name: List Products
+        meta:
+          id: req_103947bf614149b0be1cc06de185b4d4
+          created: 1785029379772
+          modified: 1785101102776
+          isPrivate: false
+          description: Filtros e paginacao via query string
+          sortKey: -3000
+        method: GET
+        parameters:
+          - name: name
+            value: teclado
+            disabled: true
+          - name: min_price
+            value: "50"
+            disabled: true
+          - name: max_price
+            value: "99.9"
+            disabled: true
+          - name: min_quantity
+            value: "5"
+            description: ""
+            disabled: true
+          - name: max_quantity
+            value: "8"
+            description: ""
+            disabled: true
+          - name: per_page
+            value: "15"
+            disabled: true
+          - name: page
+            value: "2"
+            disabled: false
+        headers:
+          - name: Accept
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/products/12"
+        name: Show Product
+        meta:
+          id: req_bfca184499c94889b8c79b0a16e10787
+          created: 1785029379772
+          modified: 1785101981617
+          isPrivate: false
+          description: ""
+          sortKey: -2000
+        method: GET
+        headers:
+          - name: Accept
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/products/12"
+        name: Update Product
+        meta:
+          id: req_0121b2879c8b4925b87a15936b03472c
+          created: 1785029379773
+          modified: 1785101967670
+          isPrivate: false
+          description: ""
+          sortKey: -1000
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Teste item atualizado 3",
+              "description": "Item atualizado",
+              "price": 120,
+              "quantity": 8
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: Accept
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/products/8"
+        name: Delete Product
+        meta:
+          id: req_748b681db04c446798b2e81d7063b47f
+          created: 1785029379774
+          modified: 1785100988374
+          isPrivate: false
+          description: ""
+          sortKey: 0
+        method: DELETE
+        headers:
+          - name: Accept
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    authentication:
+      type: bearer
+      disabled: false
+      token: "{{ token }}"
+      prefix: Bearer
+  - name: Erros
+    meta:
+      id: fld_f09d1bc4014f4a10acb07a9a8fb716f9
+      created: 1785088127246
+      modified: 1785088127246
+      sortKey: -1785088127246
+      description: ""
+    children:
+      - url: "{{ base_url }}/api/404"
+        name: "404"
+        meta:
+          id: req_df377faa251a45c7b7f118351e1ca2cd
+          created: 1785032269737
+          modified: 1785088132877
+          isPrivate: false
+          description: ""
+          sortKey: -1785088131254
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/api/v1/products"
+        name: "401"
+        meta:
+          id: req_f737b5eb550b4cd9ba404a45c861cca5
+          created: 1785032332863
+          modified: 1785088131228
+          isPrivate: false
+          description: ""
+          sortKey: -1785088131154
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_6dae6e416e31fb03611d1099c67c2f5316ae4382
+    created: 1785029343666
+    modified: 1785029343666
+environments:
+  name: Base Environment
+  meta:
+    id: env_6dae6e416e31fb03611d1099c67c2f5316ae4382
+    created: 1785029343665
+    modified: 1785089243463
+    isPrivate: false
+  data:
+    base_url: http://localhost:8000
+    token: TOKEN
