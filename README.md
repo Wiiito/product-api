@@ -123,13 +123,13 @@ Todo o ambiente roda em containers Docker, orquestrados por `docker-compose.yml`
 4. **Gere a chave da aplicação.**
 
    ```bash
-   docker-compose exec app php artisan key:generate
+   docker exec laravel_app php artisan key:generate
    ```
 
 5. **Rode as migrations** para criar as tabelas no Postgres (usuários, produtos, tokens de acesso, jobs, cache e entradas do Telescope):
 
    ```bash
-   docker-compose exec app php artisan migrate
+   docker exec laravel_app php artisan migrate
    ```
 
 6. **Pronto.** A API está disponível em `http://localhost:8000`.
