@@ -10,7 +10,6 @@ use App\Http\Requests\Products\StoreProductRequest;
 use App\Http\Requests\Products\UpdateProductRequest;
 use App\Http\Resources\Products\ProductResource;
 use App\Interfaces\Products\ProductServiceInterface;
-use App\Models\Product;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
@@ -34,27 +33,33 @@ class ProductController extends Controller
         );
     }
 
-    public function show(Product $product): ProductResource
+    public function show(int $productId): ProductResource
     {
+        $product = $this->products->find($productId);
+
         $this->authorize('view', $product);
 
-        return ProductResource::make($this->products->find($product->id));
+        return ProductResource::make($product);
     }
 
-    public function update(UpdateProductRequest $request, Product $product): ProductResource
+    public function update(UpdateProductRequest $request, int $productId): ProductResource
     {
-        $this->authorize('update', $product);
+        $existingProduct = $this->products->find($productId);
+
+        $this->authorize('update', $existingProduct);
 
         return ProductResource::make(
-            $this->products->update($product->id, ProductData::fromArray($request->validated())),
+            $this->products->update($existingProduct->id, ProductData::fromArray($request->validated())),
         );
     }
 
-    public function destroy(Product $product): Response
+    public function destroy(int $productId): Response
     {
-        $this->authorize('delete', $product);
+        $existingProduct = $this->products->find($productId);
 
-        $this->products->delete($product->id);
+        $this->authorize('delete', $existingProduct);
+
+        $this->products->delete($existingProduct->id);
 
         return response()->noContent();
     }
