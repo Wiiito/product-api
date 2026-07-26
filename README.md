@@ -132,6 +132,13 @@ Todo o ambiente roda em containers Docker, orquestrados por `docker-compose.yml`
    docker exec laravel_app php artisan migrate
    ```
 
+Extra. **Requets WEB** (Não necessário)
+   - Passo não necessário, pois o foco são rotas api, porém acessar rotas web sem rodar resultará em erro ao tentar acessar arquivos temporarios, para corrigir rode dentro da pasta do projeto:
+
+   ```bash
+   sudo chmod -R 777 .
+   ```
+
 6. **Pronto.** A API está disponível em `http://localhost:8000`.
 
    - `http://localhost:8080` — WhoDB, para inspecionar o banco Postgres visualmente.
