@@ -9,7 +9,7 @@ meta:
 collection:
   - name: Auth
     meta:
-      id: fld_30d2d0e8214a48509874f1973194c239
+      id: fld_675dad2ed3d743bc918e817268c93437
       created: 1785029379767
       modified: 1785029379767
       sortKey: -2000
@@ -18,9 +18,9 @@ collection:
       - url: "{{ base_url }}/api/v1/auth/register"
         name: Register
         meta:
-          id: req_4899492902ac4b4a9931fa31800fd72e
+          id: req_7ae1bfe5f3e64cb3a850032e1d26bb33
           created: 1785029379769
-          modified: 1785099283125
+          modified: 1785113566208
           isPrivate: false
           description: ""
           sortKey: -4000
@@ -49,7 +49,7 @@ collection:
       - url: "{{ base_url }}/api/v1/auth/login"
         name: Login
         meta:
-          id: req_5341d64f8bfe4bc9b798a9450f930c43
+          id: req_4d0657c75f624a14bb05aa94f46349ee
           created: 1785029379770
           modified: 1785030847186
           isPrivate: false
@@ -79,7 +79,7 @@ collection:
       - url: "{{ base_url }}/api/v1/auth/logout"
         name: Logout
         meta:
-          id: req_513ef3cdc7544a0e9a98bd70f4bd219e
+          id: req_29acad6a4e1549e5b4973f8e6993136e
           created: 1785029379771
           modified: 1785029740597
           isPrivate: false
@@ -103,7 +103,7 @@ collection:
           rebuildPath: true
   - name: Products
     meta:
-      id: fld_716c27b366c946a3bdcf9fb9be8519e0
+      id: fld_37873bead4b14affbe8f5cc66405c03c
       created: 1785029379768
       modified: 1785029941766
       sortKey: -1000
@@ -112,7 +112,7 @@ collection:
       - url: "{{ base_url }}/api/v1/products"
         name: Create Product
         meta:
-          id: req_2ae631fd3c6347078e5b97b778520ec7
+          id: req_97efd375a39d4c129efcb04bd7eaf6a0
           created: 1785029379771
           modified: 1785102054383
           isPrivate: false
@@ -144,9 +144,9 @@ collection:
       - url: "{{ base_url }}/api/v1/products"
         name: List Products
         meta:
-          id: req_103947bf614149b0be1cc06de185b4d4
+          id: req_0d70c59cc0454a98be4b2139673c0f26
           created: 1785029379772
-          modified: 1785101102776
+          modified: 1785108510019
           isPrivate: false
           description: Filtros e paginacao via query string
           sortKey: -3000
@@ -186,12 +186,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ base_url }}/api/v1/products/12"
+      - url: "{{ base_url }}/api/v1/products/1"
         name: Show Product
         meta:
-          id: req_bfca184499c94889b8c79b0a16e10787
+          id: req_cdf91fae7b2b4d0a9015f75e96bfac59
           created: 1785029379772
-          modified: 1785101981617
+          modified: 1785113555143
           isPrivate: false
           description: ""
           sortKey: -2000
@@ -207,12 +207,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ base_url }}/api/v1/products/12"
+      - url: "{{ base_url }}/api/v1/products/1"
         name: Update Product
         meta:
-          id: req_0121b2879c8b4925b87a15936b03472c
+          id: req_277958a5d33c48679f82d9673a8f3588
           created: 1785029379773
-          modified: 1785101967670
+          modified: 1785113557269
           isPrivate: false
           description: ""
           sortKey: -1000
@@ -239,12 +239,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{ base_url }}/api/v1/products/8"
+      - url: "{{ base_url }}/api/v1/products/1"
         name: Delete Product
         meta:
-          id: req_748b681db04c446798b2e81d7063b47f
+          id: req_204291ad53db42cf95674f3040a6d626
           created: 1785029379774
-          modified: 1785100988374
+          modified: 1785108246961
           isPrivate: false
           description: ""
           sortKey: 0
@@ -267,7 +267,7 @@ collection:
       prefix: Bearer
   - name: Erros
     meta:
-      id: fld_f09d1bc4014f4a10acb07a9a8fb716f9
+      id: fld_79db5c72001d469888a1aa0dae3a8d46
       created: 1785088127246
       modified: 1785088127246
       sortKey: -1785088127246
@@ -276,9 +276,9 @@ collection:
       - url: "{{ base_url }}/api/404"
         name: "404"
         meta:
-          id: req_df377faa251a45c7b7f118351e1ca2cd
+          id: req_b1142219fe784619b065503057a34498
           created: 1785032269737
-          modified: 1785088132877
+          modified: 1785108061734
           isPrivate: false
           description: ""
           sortKey: -1785088131254
@@ -294,7 +294,7 @@ collection:
       - url: "{{ base_url }}/api/v1/products"
         name: "401"
         meta:
-          id: req_f737b5eb550b4cd9ba404a45c861cca5
+          id: req_dd1103f93a0d47229946b9a123b0b91e
           created: 1785032332863
           modified: 1785088131228
           isPrivate: false
